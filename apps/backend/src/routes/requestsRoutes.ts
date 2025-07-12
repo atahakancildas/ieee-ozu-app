@@ -11,8 +11,6 @@ import {
 const router = express.Router();
 
 // TODO: Add auth middlewares
-// Example: router.use(requireAuth);
-// Example: router.use(requireAdmin);
 
 // Public routes
 router.post("/", catchAsync(createRequest));

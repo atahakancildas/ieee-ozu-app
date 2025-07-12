@@ -18,7 +18,7 @@ export const requests = pgTable("requests", {
   department: varchar("department").notNull(),
   email: varchar("email").notNull(),
   phoneNumber: varchar("phone_number").notNull(),
-  isPreviousYear: boolean("is_previous_year").notNull(),
+  isPreviousYear: boolean("is_previous_year").notNull().default(false),
   year: yearEnum("year").notNull(),
   expectations: text("expectations").notNull(),
   status: requestStatusEnum("status").notNull().default("pending"),
