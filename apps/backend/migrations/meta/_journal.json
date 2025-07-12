@@ -15,6 +15,20 @@
       "when": 1752343937641,
       "tag": "0001_tidy_pestilence",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1752351896308,
+      "tag": "0002_purple_phantom_reporter",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1752354095145,
+      "tag": "0003_uneven_silverclaw",
+      "breakpoints": true
     }
   ]
 }

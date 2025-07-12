@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { db } from "../db";
+import { db } from "../../utils/db";
 import { requests } from "../models/schemas/requests";
 import { eq, desc } from "drizzle-orm";
 import { AppError } from "../middlewares/errorHandler";
@@ -95,6 +95,14 @@ export const updateRequest = async (req: Request, res: Response) => {
   const { id } = req.params;
   const updateData = req.body;
 
+  const existingRequest = await db.query.requests.findFirst({
+    where: eq(requests.id, id),
+  });
+
+  if (!existingRequest) {
+    throw new AppError("Request not found", 404);
+  }
+
   await db.update(requests).set(updateData).where(eq(requests.id, id));
 
   res.status(200).json({ message: "Request updated successfully" });
@@ -107,6 +115,14 @@ export const updateRequest = async (req: Request, res: Response) => {
  */
 export const deleteRequest = async (req: Request, res: Response) => {
   const { id } = req.params;
+
+  const existingRequest = await db.query.requests.findFirst({
+    where: eq(requests.id, id),
+  });
+
+  if (!existingRequest) {
+    throw new AppError("Request not found", 404);
+  }
 
   await db.delete(requests).where(eq(requests.id, id));
 

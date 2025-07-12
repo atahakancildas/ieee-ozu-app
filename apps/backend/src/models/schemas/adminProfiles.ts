@@ -8,10 +8,12 @@ import { societiesToAdmins } from "./societiesToAdmins";
 
 export const adminProfiles = pgTable("admin_profiles", {
   id: uuid("id").defaultRandom().primaryKey(),
-  adminId: uuid("admin_id").references(() => members.id),
-  imgId: varchar("img_id").notNull(),
-  imgUrl: text("img_url").notNull(),
-  linkedinUrl: text("linkedin_url").notNull(),
+  adminId: uuid("admin_id").references(() => members.id, {
+    onDelete: "cascade",
+  }),
+  imgId: varchar("img_id"),
+  imgUrl: text("img_url"),
+  linkedinUrl: text("linkedin_url"),
   publicEmail: varchar("public_email").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at")

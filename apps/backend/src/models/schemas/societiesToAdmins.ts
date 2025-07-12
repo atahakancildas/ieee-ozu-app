@@ -7,10 +7,10 @@ export const societiesToAdmins = pgTable("societies_to_admins", {
   id: uuid("id").defaultRandom().primaryKey(),
   societyId: uuid("society_id")
     .notNull()
-    .references(() => societies.id),
+    .references(() => societies.id, { onDelete: "cascade" }),
   adminId: uuid("admin_id")
     .notNull()
-    .references(() => adminProfiles.id),
+    .references(() => adminProfiles.id, { onDelete: "cascade" }),
 });
 
 export const societiesToAdminsRelations = relations(

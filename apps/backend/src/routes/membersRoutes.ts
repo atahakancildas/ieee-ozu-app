@@ -12,7 +12,7 @@ const router = express.Router();
 
 // TODO: Add auth middlewares
 
-// Protected routes (require authentication)
+// Protected routes (require authentication & admin role)
 router.get("/", catchAsync(getAllMembers));
 router.post("/", catchAsync(createMember));
 router.get("/:id", catchAsync(getMemberById));

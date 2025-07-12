@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { db } from "../db";
+import { db } from "../../utils/db";
 import { members } from "../models/schemas/members";
 import { eq, desc } from "drizzle-orm";
 import { AppError } from "../middlewares/errorHandler";
@@ -37,6 +37,7 @@ export const getMemberById = async (req: Request, res: Response) => {
 };
 
 // TODO: Handle sending emails to users whose applications are approved
+// TODO: Handle clerk user creation then add clerkUserId
 /**
  * @desc    Create new member
  * @route   POST /api/members
@@ -58,7 +59,6 @@ export const createMember = async (req: Request, res: Response) => {
     clubRole,
   } = req.body;
 
-  // Input validation
   if (
     !clerkUserId ||
     !name ||
@@ -102,7 +102,14 @@ export const updateMember = async (req: Request, res: Response) => {
   const { id } = req.params;
   const updateData = req.body;
 
-  // Prevent updating clerkUserId
+  const existingMember = await db.query.members.findFirst({
+    where: eq(members.id, id),
+  });
+
+  if (!existingMember) {
+    throw new AppError("Member not found", 404);
+  }
+
   if (updateData.clerkUserId) {
     delete updateData.clerkUserId;
   }
@@ -119,6 +126,14 @@ export const updateMember = async (req: Request, res: Response) => {
  */
 export const deleteMember = async (req: Request, res: Response) => {
   const { id } = req.params;
+
+  const existingMember = await db.query.members.findFirst({
+    where: eq(members.id, id),
+  });
+
+  if (!existingMember) {
+    throw new AppError("Member not found", 404);
+  }
 
   await db.delete(members).where(eq(members.id, id));
 

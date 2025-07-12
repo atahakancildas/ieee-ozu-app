@@ -15,7 +15,7 @@ const router = express.Router();
 // Public routes
 router.post("/", catchAsync(createRequest));
 
-// Protected routes (require authentication)
+// Protected routes (require authentication & admin role)
 router.get("/", catchAsync(getAllRequests));
 router.get("/:id", catchAsync(getRequestById));
 router.patch("/:id", catchAsync(updateRequest));

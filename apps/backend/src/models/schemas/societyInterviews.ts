@@ -11,19 +11,19 @@ export const societyInterviews = pgTable("societyInterviews", {
   id: uuid("id").defaultRandom().primaryKey(),
   applicationId: uuid("application_id")
     .notNull()
-    .references(() => societyApplications.id),
-  interviewerId: uuid("interviewer_id")
-    .notNull()
-    .references(() => adminProfiles.id),
+    .references(() => societyApplications.id, { onDelete: "cascade" }),
+  interviewerId: uuid("interviewer_id").references(() => adminProfiles.id, {
+    onDelete: "cascade",
+  }),
   intervieweeId: uuid("interviewee_id")
     .notNull()
-    .references(() => members.id),
+    .references(() => members.id, { onDelete: "cascade" }),
   associatedSocietyId: uuid("associated_society_id")
     .notNull()
-    .references(() => societies.id),
+    .references(() => societies.id, { onDelete: "cascade" }),
   timeSlotId: uuid("time_slot_id")
     .notNull()
-    .references(() => timeSlots.id),
+    .references(() => timeSlots.id, { onDelete: "cascade" }),
   notes: text("notes").notNull(),
   status: interviewStatusEnum("status").notNull().default("scheduled"),
   createdAt: timestamp("created_at").defaultNow(),

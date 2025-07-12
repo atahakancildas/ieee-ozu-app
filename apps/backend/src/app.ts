@@ -2,6 +2,8 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import requestsRouter from "./routes/requestsRoutes";
+import membersRouter from "./routes/membersRoutes";
+import adminsRouter from "./routes/adminsRoutes";
 import { config } from "dotenv";
 import { errorHandler, notFoundHandler } from "./middlewares/errorHandler";
 
@@ -21,6 +23,8 @@ app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
 // Routes
 app.use("/api/requests", requestsRouter);
+app.use("/api/members", membersRouter);
+app.use("/api/admins", adminsRouter);
 
 // 404 handler - must be after all other routes
 app.use(notFoundHandler);
