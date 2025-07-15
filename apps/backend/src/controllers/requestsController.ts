@@ -103,6 +103,10 @@ export const updateRequest = async (req: Request, res: Response) => {
     throw new AppError("Request not found", 404);
   }
 
+  if (status !== "approved" && status !== "rejected") {
+    throw new AppError("Invalid status", 400);
+  }
+
   await db.update(requests).set({ status }).where(eq(requests.id, id));
 
   res.status(200).json({ message: "Request updated successfully" });
