@@ -14,7 +14,7 @@ export const getAllRequests = async (req: Request, res: Response) => {
     orderBy: [desc(requests.createdAt)],
   });
 
-  res.json(result);
+  res.status(200).json(result);
 };
 
 /**
@@ -33,7 +33,7 @@ export const getRequestById = async (req: Request, res: Response) => {
     throw new AppError("Request not found", 404);
   }
 
-  res.json(request);
+  res.status(200).json(request);
 };
 
 /**
@@ -87,13 +87,13 @@ export const createRequest = async (req: Request, res: Response) => {
 };
 
 /**
- * @desc    Update request
+ * @desc    Update request (only status update is allowed)
  * @route   PATCH /api/requests/:id
  * @access  Private/Admin
  */
 export const updateRequest = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const updateData = req.body;
+  const { status } = req.body;
 
   const existingRequest = await db.query.requests.findFirst({
     where: eq(requests.id, id),
@@ -103,7 +103,7 @@ export const updateRequest = async (req: Request, res: Response) => {
     throw new AppError("Request not found", 404);
   }
 
-  await db.update(requests).set(updateData).where(eq(requests.id, id));
+  await db.update(requests).set({ status }).where(eq(requests.id, id));
 
   res.status(200).json({ message: "Request updated successfully" });
 };

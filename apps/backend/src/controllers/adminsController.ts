@@ -31,7 +31,7 @@ export const getAllAdmins = async (req: Request, res: Response) => {
     },
   });
 
-  res.json(result);
+  res.status(200).json(result);
 };
 
 /**
@@ -61,7 +61,7 @@ export const getAdminById = async (req: Request, res: Response) => {
     throw new AppError("Admin profile not found", 404);
   }
 
-  res.json(admin);
+  res.status(200).json(admin);
 };
 
 /**
@@ -137,9 +137,6 @@ export const updateAdmin = async (req: Request, res: Response) => {
   }
 
   const { linkedinUrl, publicEmail, titleIds = [] } = req.body;
-  if (!linkedinUrl && !publicEmail && !req.file && titleIds.length === 0) {
-    throw new AppError("No update data provided", 400);
-  }
 
   await db.transaction(async (tx) => {
     let imgData = null;
@@ -197,7 +194,7 @@ export const updateAdmin = async (req: Request, res: Response) => {
     }
   });
 
-  res.json({ message: "Admin profile updated successfully" });
+  res.status(200).json({ message: "Admin profile updated successfully" });
 };
 
 /**
@@ -231,7 +228,7 @@ export const deleteAdmin = async (req: Request, res: Response) => {
     }
   });
 
-  res.json({
+  res.status(200).json({
     message: "Admin profile and all related data deleted successfully",
   });
 };

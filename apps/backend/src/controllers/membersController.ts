@@ -14,7 +14,7 @@ export const getAllMembers = async (req: Request, res: Response) => {
     orderBy: [desc(members.createdAt)],
   });
 
-  res.json(result);
+  res.status(200).json(result);
 };
 
 /**
@@ -33,7 +33,7 @@ export const getMemberById = async (req: Request, res: Response) => {
     throw new AppError("Member not found", 404);
   }
 
-  res.json(member);
+  res.status(200).json(member);
 };
 
 // TODO: Handle sending emails to users whose applications are approved
@@ -100,7 +100,17 @@ export const createMember = async (req: Request, res: Response) => {
  */
 export const updateMember = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const updateData = req.body;
+  const {
+    name,
+    surname,
+    studentId,
+    faculty,
+    department,
+    email,
+    phoneNumber,
+    year,
+    clubRole,
+  } = req.body;
 
   const existingMember = await db.query.members.findFirst({
     where: eq(members.id, id),
@@ -110,11 +120,20 @@ export const updateMember = async (req: Request, res: Response) => {
     throw new AppError("Member not found", 404);
   }
 
-  if (updateData.clerkUserId) {
-    delete updateData.clerkUserId;
-  }
-
-  await db.update(members).set(updateData).where(eq(members.id, id));
+  await db
+    .update(members)
+    .set({
+      name,
+      surname,
+      studentId,
+      faculty,
+      department,
+      email,
+      phoneNumber,
+      year,
+      clubRole,
+    })
+    .where(eq(members.id, id));
 
   res.status(200).json({ message: "Member updated successfully" });
 };
