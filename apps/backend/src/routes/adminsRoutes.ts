@@ -7,6 +7,7 @@ import {
   updateAdmin,
   deleteAdmin,
 } from "../controllers/adminsController";
+import upload from "../../utils/multer";
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ const router = express.Router();
 router.get("/", catchAsync(getAllAdmins));
 router.post("/", catchAsync(createAdmin));
 router.get("/:id", catchAsync(getAdminById));
-router.patch("/:id", catchAsync(updateAdmin));
+router.patch("/:id", upload.single("image"), catchAsync(updateAdmin));
 router.delete("/:id", catchAsync(deleteAdmin));
 
 export default router;

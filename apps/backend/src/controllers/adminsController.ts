@@ -7,6 +7,8 @@ import { adminTitles } from "../models/schemas/adminTitles";
 import { eq, inArray } from "drizzle-orm";
 import { AppError } from "../middlewares/errorHandler";
 import { members } from "../models";
+import cloudinary from "../../utils/cloudinary";
+import streamifier from "streamifier";
 
 /**
  * @desc    Get all admin profiles
@@ -17,7 +19,15 @@ export const getAllAdmins = async (req: Request, res: Response) => {
   const result = await db.query.members.findMany({
     where: eq(members.clubRole, "admin"),
     with: {
-      adminProfile: true,
+      adminProfile: {
+        with: {
+          titles: {
+            with: {
+              adminTitle: true,
+            },
+          },
+        },
+      },
     },
   });
 
@@ -35,7 +45,15 @@ export const getAdminById = async (req: Request, res: Response) => {
   const admin = await db.query.members.findFirst({
     where: eq(members.id, id),
     with: {
-      adminProfile: true,
+      adminProfile: {
+        with: {
+          titles: {
+            with: {
+              adminTitle: true,
+            },
+          },
+        },
+      },
     },
   });
 
@@ -103,6 +121,86 @@ export const createAdmin = async (req: Request, res: Response) => {
 };
 
 /**
+ * @desc    Update admin profile
+ * @route   PUT /api/admins/:id
+ * @access  Private/Admin
+ */
+export const updateAdmin = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const existingAdmin = await db.query.adminProfiles.findFirst({
+    where: eq(adminProfiles.id, id),
+  });
+
+  if (!existingAdmin) {
+    throw new AppError("Admin profile not found", 404);
+  }
+
+  const { linkedinUrl, publicEmail, titleIds = [] } = req.body;
+  if (!linkedinUrl && !publicEmail && !req.file && titleIds.length === 0) {
+    throw new AppError("No update data provided", 400);
+  }
+
+  await db.transaction(async (tx) => {
+    let imgData = null;
+    if (req.file) {
+      if (existingAdmin.imgId) {
+        await cloudinary.uploader.destroy(existingAdmin.imgId);
+      }
+
+      try {
+        const result = await new Promise<{
+          secure_url: string;
+          public_id: string;
+        }>((resolve) => {
+          const stream = cloudinary.uploader.upload_stream(
+            { resource_type: "auto" },
+            (error, result) => {
+              if (error || !result) throw error;
+              resolve(result);
+            }
+          );
+
+          streamifier
+            .createReadStream((req.file as Express.Multer.File).buffer)
+            .pipe(stream);
+        });
+
+        imgData = { imgId: result.public_id, imgUrl: result.secure_url };
+      } catch (error) {
+        throw new AppError("Failed to upload image", 500);
+      }
+    }
+
+    const updateData = {
+      linkedinUrl,
+      publicEmail,
+      ...imgData,
+    };
+
+    await tx
+      .update(adminProfiles)
+      .set(updateData)
+      .where(eq(adminProfiles.id, id));
+
+    if (titleIds.length > 0) {
+      await tx
+        .delete(adminProfilesToAdminTitles)
+        .where(eq(adminProfilesToAdminTitles.adminProfileId, id));
+
+      await tx.insert(adminProfilesToAdminTitles).values(
+        titleIds.map((titleId: string) => ({
+          adminProfileId: id,
+          adminTitleId: titleId,
+        }))
+      );
+    }
+  });
+
+  res.json({ message: "Admin profile updated successfully" });
+};
+
+/**
  * @desc    Delete admin profile
  * @route   DELETE /api/admins/:id
  * @access  Private/Admin
@@ -119,6 +217,10 @@ export const deleteAdmin = async (req: Request, res: Response) => {
   }
 
   await db.transaction(async (tx) => {
+    if (existingAdmin.imgId) {
+      await cloudinary.uploader.destroy(existingAdmin.imgId);
+    }
+
     await tx.delete(adminProfiles).where(eq(adminProfiles.id, id));
 
     if (existingAdmin.adminId) {
