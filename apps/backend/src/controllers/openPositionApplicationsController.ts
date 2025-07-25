@@ -6,7 +6,7 @@ import { AppError } from "../middlewares/errorHandler";
 
 /**
  * @desc    Get all open position applications
- * @route   GET /api/open-position-applications
+ * @route   GET /api/applications/open-position
  * @access  Private/Admin
  */
 export const getAllOpenPositionApplications = async (
@@ -22,7 +22,7 @@ export const getAllOpenPositionApplications = async (
 
 /**
  * @desc    Get single open position application
- * @route   GET /api/open-position-applications/:id
+ * @route   GET /api/applications/open-position/:id
  * @access  Private/Admin
  */
 export const getOpenPositionApplicationById = async (
@@ -44,8 +44,8 @@ export const getOpenPositionApplicationById = async (
 
 /**
  * @desc    Create new open position application
- * @route   POST /api/open-position-applications
- * @access  Public
+ * @route   POST /api/applications/open-position
+ * @access  Public/Everybody
  */
 export const createOpenPositionApplication = async (
   req: Request,
@@ -100,7 +100,7 @@ export const createOpenPositionApplication = async (
 
 /**
  * @desc    Update open position application (only status update is allowed)
- * @route   PATCH /api/open-position-applications/:id
+ * @route   PATCH /api/applications/open-position/:id
  * @access  Private/Admin
  */
 export const updateOpenPositionApplication = async (
@@ -134,7 +134,7 @@ export const updateOpenPositionApplication = async (
 
 /**
  * @desc    Delete open position application
- * @route   DELETE /api/open-position-applications/:id
+ * @route   DELETE /api/applications/open-position/:id
  * @access  Private/Admin
  */
 export const deleteOpenPositionApplication = async (

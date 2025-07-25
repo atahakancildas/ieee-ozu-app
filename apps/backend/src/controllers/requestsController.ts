@@ -39,7 +39,7 @@ export const getRequestById = async (req: Request, res: Response) => {
 /**
  * @desc    Create new request
  * @route   POST /api/requests
- * @access  Public
+ * @access  Public/Everybody
  */
 export const createRequest = async (req: Request, res: Response) => {
   const {
@@ -55,7 +55,6 @@ export const createRequest = async (req: Request, res: Response) => {
     expectations,
   } = req.body;
 
-  // Input validation
   if (
     !name ||
     !surname ||
