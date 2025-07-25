@@ -6,7 +6,7 @@ export const timeSlots = pgTable("time_slots", {
   id: uuid("id").defaultRandom().primaryKey(),
   adminId: uuid("admin_id")
     .notNull()
-    .references(() => adminProfiles.id),
+    .references(() => adminProfiles.id, { onDelete: "cascade" }),
   startTime: timestamp("start_time").notNull(),
   endTime: timestamp("end_time").notNull(),
   isAvailable: boolean("is_available").notNull().default(true),

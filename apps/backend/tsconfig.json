@@ -13,6 +13,11 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*", "drizzle.config.ts"],
+  "include": [
+    "src/**/*",
+    "drizzle.config.ts",
+    "utils/db.ts",
+    "utils/multer.ts"
+  ],
   "exclude": ["node_modules", "dist"]
 }

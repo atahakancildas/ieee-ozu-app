@@ -24,7 +24,7 @@ export const members = pgTable("members", {
   department: varchar("department").notNull(),
   email: varchar("email").notNull(),
   phoneNumber: varchar("phone_number").notNull(),
-  isPreviousYear: boolean("is_previous_year").notNull(),
+  isPreviousYear: boolean("is_previous_year").notNull().default(false),
   year: yearEnum("year").notNull(),
   expectations: text("expectations").notNull(),
   clubRole: clubRoleEnum("club_role").notNull().default("member"),

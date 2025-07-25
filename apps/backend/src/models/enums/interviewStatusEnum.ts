@@ -7,5 +7,4 @@ export const interviewStatusEnum = pgEnum("interview_status", [
   "cancelled",
   "approved",
   "rejected",
-  "delayed",
 ]);
