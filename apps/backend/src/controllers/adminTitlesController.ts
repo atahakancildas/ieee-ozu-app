@@ -6,7 +6,7 @@ import { AppError } from "../middlewares/errorHandler";
 
 /**
  * @desc    Get all admin titles
- * @route   GET /api/admin-titles
+ * @route   GET /api/admins/titles
  * @access  Private/Admin
  */
 export const getAllTitles = async (req: Request, res: Response) => {
@@ -21,7 +21,7 @@ export const getAllTitles = async (req: Request, res: Response) => {
 
 /**
  * @desc    Get single admin title by ID
- * @route   GET /api/admin-titles/:id
+ * @route   GET /api/admins/titles/:id
  * @access  Private/Admin
  */
 export const getTitleById = async (req: Request, res: Response) => {
@@ -43,7 +43,7 @@ export const getTitleById = async (req: Request, res: Response) => {
 
 /**
  * @desc    Create a new admin title
- * @route   POST /api/admin-titles
+ * @route   POST /api/admins/titles
  * @access  Private/Admin
  */
 export const createTitle = async (req: Request, res: Response) => {
@@ -65,7 +65,7 @@ export const createTitle = async (req: Request, res: Response) => {
 
 /**
  * @desc    Update an admin title
- * @route   PUT /api/admin-titles/:id
+ * @route   PUT /api/admins/titles/:id
  * @access  Private/Admin
  */
 export const updateTitle = async (req: Request, res: Response) => {
@@ -95,7 +95,7 @@ export const updateTitle = async (req: Request, res: Response) => {
 
 /**
  * @desc    Delete an admin title
- * @route   DELETE /api/admin-titles/:id
+ * @route   DELETE /api/admins/titles/:id
  * @access  Private/Admin
  */
 export const deleteTitle = async (req: Request, res: Response) => {
