@@ -1,7 +1,6 @@
 export * from "./enums/applicationStatusEnum";
 export * from "./enums/clubRoleEnum";
 export * from "./enums/interviewStatusEnum";
-export * from "./enums/requestStatusEnum";
 export * from "./enums/yearEnum";
 
 export * from "./schemas/adminProfiles";

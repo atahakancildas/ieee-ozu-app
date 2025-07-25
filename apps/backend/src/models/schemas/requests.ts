@@ -6,8 +6,8 @@ import {
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
-import { requestStatusEnum } from "../enums/requestStatusEnum";
 import { yearEnum } from "../enums/yearEnum";
+import { applicationStatusEnum } from "../enums/applicationStatusEnum";
 
 export const requests = pgTable("requests", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -21,6 +21,6 @@ export const requests = pgTable("requests", {
   isPreviousYear: boolean("is_previous_year").notNull().default(false),
   year: yearEnum("year").notNull(),
   expectations: text("expectations").notNull(),
-  status: requestStatusEnum("status").notNull().default("pending"),
+  status: applicationStatusEnum("status").notNull().default("pending"),
   createdAt: timestamp("created_at").defaultNow(),
 });

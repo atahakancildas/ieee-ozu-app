@@ -1,5 +1,6 @@
 import { pgTable, uuid, timestamp, varchar, text } from "drizzle-orm/pg-core";
 import { yearEnum } from "../enums/yearEnum";
+import { applicationStatusEnum } from "../enums/applicationStatusEnum";
 
 export const openPositionApplications = pgTable("open_position_applications", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -14,5 +15,6 @@ export const openPositionApplications = pgTable("open_position_applications", {
   motivation: text("motivation").notNull(),
   weeklyCommitmentHours: varchar("weekly_commitment_hours").notNull(),
   references: text("references").notNull(),
+  status: applicationStatusEnum("status").notNull().default("pending"),
   createdAt: timestamp("created_at").defaultNow(),
 });

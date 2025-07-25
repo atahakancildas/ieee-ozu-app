@@ -1,5 +1,5 @@
 {
-  "id": "2910b7b4-e913-49fe-b219-b3bb2d88156c",
+  "id": "e4aaecf7-6b26-4305-bbf8-9d6985fe6280",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -25,19 +25,19 @@
           "name": "img_id",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "img_url": {
           "name": "img_url",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "linkedin_url": {
           "name": "linkedin_url",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "public_email": {
           "name": "public_email",
@@ -72,7 +72,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -90,13 +90,13 @@
           "name": "admin_profile_id",
           "type": "uuid",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "admin_title_id": {
           "name": "admin_title_id",
           "type": "uuid",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         }
       },
       "indexes": {},
@@ -111,7 +111,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "admin_profiles_to_admin_titles_admin_title_id_admin_titles_id_fk": {
@@ -124,7 +124,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -354,7 +354,8 @@
           "name": "is_previous_year",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": false
         },
         "year": {
           "name": "year",
@@ -486,6 +487,14 @@
           "primaryKey": false,
           "notNull": true
         },
+        "status": {
+          "name": "status",
+          "type": "application_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
@@ -559,7 +568,8 @@
           "name": "is_previous_year",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": false
         },
         "year": {
           "name": "year",
@@ -576,7 +586,7 @@
         },
         "status": {
           "name": "status",
-          "type": "request_status",
+          "type": "application_status",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
@@ -700,7 +710,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "societies_to_admins_admin_id_admin_profiles_id_fk": {
@@ -713,7 +723,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -883,7 +893,7 @@
           "name": "interviewer_id",
           "type": "uuid",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "interviewee_id": {
           "name": "interviewee_id",
@@ -944,7 +954,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "societyInterviews_interviewer_id_admin_profiles_id_fk": {
@@ -957,7 +967,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "societyInterviews_interviewee_id_members_id_fk": {
@@ -970,7 +980,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "societyInterviews_associated_society_id_societies_id_fk": {
@@ -983,7 +993,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "societyInterviews_time_slot_id_time_slots_id_fk": {
@@ -996,7 +1006,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -1055,7 +1065,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -1092,16 +1102,6 @@
         "rescheduled",
         "completed",
         "cancelled",
-        "approved",
-        "rejected",
-        "delayed"
-      ]
-    },
-    "public.request_status": {
-      "name": "request_status",
-      "schema": "public",
-      "values": [
-        "pending",
         "approved",
         "rejected"
       ]

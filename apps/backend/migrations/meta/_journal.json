@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1751653584419,
-      "tag": "0000_elite_avengers",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1752343937641,
-      "tag": "0001_tidy_pestilence",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1752351896308,
-      "tag": "0002_purple_phantom_reporter",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1752354095145,
-      "tag": "0003_uneven_silverclaw",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1752610838367,
-      "tag": "0004_loving_chamber",
+      "when": 1753460577654,
+      "tag": "0000_many_triathlon",
       "breakpoints": true
     }
   ]
