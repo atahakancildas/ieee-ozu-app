@@ -5,6 +5,7 @@ import requestsRouter from "./routes/requestsRoutes";
 import membersRouter from "./routes/membersRoutes";
 import adminsRouter from "./routes/adminsRoutes";
 import clubSettingsRouter from "./routes/clubSettingsRoutes";
+import openPositionApplicationsRouter from "./routes/openPositionApplicationsRoutes";
 import { config } from "dotenv";
 import { errorHandler, notFoundHandler } from "./middlewares/errorHandler";
 
@@ -28,6 +29,7 @@ app.use("/api/requests", requestsRouter);
 app.use("/api/members", membersRouter);
 app.use("/api/admins", adminsRouter);
 app.use("/api/club-settings", clubSettingsRouter);
+app.use("/api/open-position-applications", openPositionApplicationsRouter);
 
 // 404 handler - must be after all other routes
 app.use(notFoundHandler);
