@@ -7,6 +7,7 @@ import adminsRouter from "./routes/adminsRoutes";
 import adminTitlesRouter from "./routes/adminTitlesRoutes";
 import clubSettingsRouter from "./routes/clubSettingsRoutes";
 import openPositionApplicationsRouter from "./routes/openPositionApplicationsRoutes";
+import timeSlotsRouter from "./routes/timeSlotsRoutes";
 import { config } from "dotenv";
 import { errorHandler, notFoundHandler } from "./middlewares/errorHandler";
 
@@ -30,6 +31,7 @@ app.use("/api/requests", requestsRouter);
 app.use("/api/members", membersRouter);
 app.use("/api/admins", adminsRouter);
 app.use("/api/admins/titles", adminTitlesRouter);
+app.use("/api/admins/time-slots", timeSlotsRouter);
 app.use("/api/club-settings", clubSettingsRouter);
 app.use("/api/applications/open-position", openPositionApplicationsRouter);
 
