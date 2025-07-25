@@ -4,6 +4,7 @@ import cors from "cors";
 import requestsRouter from "./routes/requestsRoutes";
 import membersRouter from "./routes/membersRoutes";
 import adminsRouter from "./routes/adminsRoutes";
+import adminTitlesRouter from "./routes/adminTitlesRoutes";
 import clubSettingsRouter from "./routes/clubSettingsRoutes";
 import openPositionApplicationsRouter from "./routes/openPositionApplicationsRoutes";
 import { config } from "dotenv";
@@ -28,8 +29,9 @@ app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use("/api/requests", requestsRouter);
 app.use("/api/members", membersRouter);
 app.use("/api/admins", adminsRouter);
+app.use("/api/admins/titles", adminTitlesRouter);
 app.use("/api/club-settings", clubSettingsRouter);
-app.use("/api/open-position-applications", openPositionApplicationsRouter);
+app.use("/api/applications/open-position", openPositionApplicationsRouter);
 
 // 404 handler - must be after all other routes
 app.use(notFoundHandler);
