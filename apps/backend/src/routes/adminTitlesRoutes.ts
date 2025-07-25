@@ -16,7 +16,7 @@ const router = express.Router();
 router.get("/", catchAsync(getAllTitles));
 router.post("/", catchAsync(createTitle));
 router.get("/:id", catchAsync(getTitleById));
-router.put("/:id", catchAsync(updateTitle));
+router.patch("/:id", catchAsync(updateTitle));
 router.delete("/:id", catchAsync(deleteTitle));
 
 export default router;
