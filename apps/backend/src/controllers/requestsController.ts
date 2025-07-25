@@ -39,7 +39,7 @@ export const getRequestById = async (req: Request, res: Response) => {
 /**
  * @desc    Create new request
  * @route   POST /api/requests
- * @access  Public/Everybody
+ * @access  Public
  */
 export const createRequest = async (req: Request, res: Response) => {
   const {

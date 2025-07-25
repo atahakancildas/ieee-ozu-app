@@ -45,7 +45,7 @@ export const getOpenPositionApplicationById = async (
 /**
  * @desc    Create new open position application
  * @route   POST /api/applications/open-position
- * @access  Public/Everybody
+ * @access  Public
  */
 export const createOpenPositionApplication = async (
   req: Request,
