@@ -22,7 +22,7 @@
     "drizzle-orm": "^0.44.2",
     "express": "^5.1.0",
     "morgan": "^1.10.0",
-    "multer": "^2.0.1",
+    "multer": "^2.0.2",
     "streamifier": "^0.1.1"
   },
   "devDependencies": {
